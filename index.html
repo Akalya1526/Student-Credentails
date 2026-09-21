@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Credentials</title>
+</head>
+<style>
+    .demo{
+        margin: 10px;
+        border-radius: 25deg;
+        border: 20px;
+        box-sizing: content-box;
+    }
+</style>
+<body>
+    <div class="demo">
+    <center>
+        <h1>STUDENTS CREDENTAILS</h1>
+    <label for="MernStack">MernStack : </label>
+   <input type="number" id="sub1"></input><br><br>
+   <label for="Python">Python : </label>
+   <input  type="number" id="sub2"></input><br><br>
+   <label for="Java">Java : </label>
+   <input  type="number" id="sub3"></input><br><br>
+   <label for="React">React : </label>
+   <input  type="number" id="sub4"></input><br><br>
+   <label for="Web Development">WEb Development : </label>
+   <input  type="number" id="sub5"></input><br><br>
+
+   <button onclick="marks()">Submit</button>
+   <h1 id="result"></h1>
+    </div>      
+   </center>
+   <script>
+    const marks=()=>{
+        let Mark1=Number(document.getElementById("sub1").value)
+        let Mark2=Number(document.getElementById("sub2").value)
+        let Mark3=Number(document.getElementById("sub3").value)
+        let Mark4=Number(document.getElementById("sub4").value)
+        let Mark5=Number(document.getElementById("sub5").value)
+        let total=Mark1 + Mark2 + Mark3 + Mark4 + Mark5
+        let Average=total/5
+
+        if(total >=100){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade A" )
+        }
+        else if(total>=80){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade B" )
+        }
+        else if(total>=50){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade C" )
+        }
+        else if(total>=25){
+            document.getElementById("result").innerHTML=("Student just pass" + " " + total + " " + Average + "%" + "Grade D" )
+        }
+        else{
+            document.getElementById("result").innerHTML=("Student fail" + " " + total + " " + Average  + "%" + "UR" )
+        }
+    }
+   </script>
+</body>
+</html>
