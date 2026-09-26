@@ -2,264 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            box-shadow: black;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: pink;
-            display: flex;
-            justify-content: center;
-            padding: 30px 15px;
-            height: 130vh;
-
-        }
-
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 4px 15px #0002;
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-        h1{
-            background-color: #1d4ed8;
-        }
-        .balance {
-            text-align: center;
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .summary {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .summary div {
-            flex: 1;
-            text-align: center;
-            padding: 15px 5px;
-            border-radius: 8px;
-            background: #f5f5f5;
-        }
-
-        .income {
-            color: green;
-        }
-
-        .expense {
-            color: red;
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1d4ed8;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            margin: 8px 0;
-            background: #f5f5f5;
-            border-radius: 6px;
-        }
-
-        .delete-btn {
-            background: #ef4444;
-            width: auto;
-            margin: 0;
-            padding: 7px 10px;
-        }
-
-        .transaction-info {
-            overflow-wrap: anywhere;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Credentials</title>
 </head>
-
+<style>
+    .demo{
+        margin: 10px;
+        border-radius: 25deg;
+        border: 20px;
+        box-sizing: content-box;
+    }
+</style>
 <body>
-    <div class="container">
-        <h1>Expense Tracker</h1>
+    <div class="demo">
+    <center>
+        <h1>STUDENTS CREDENTAILS</h1>
+    <label for="MernStack">MernStack : </label>
+   <input type="number" id="sub1"></input><br><br>
+   <label for="Python">Python : </label>
+   <input  type="number" id="sub2"></input><br><br>
+   <label for="Java">Java : </label>
+   <input  type="number" id="sub3"></input><br><br>
+   <label for="React">React : </label>
+   <input  type="number" id="sub4"></input><br><br>
+   <label for="Web Development">WEb Development : </label>
+   <input  type="number" id="sub5"></input><br><br>
 
-        <div class="balance">
-            <h3>Current Balance</h3>
-            <h2 id="balance">₹0.00</h2>
-        </div>
+   <button onclick="marks()">Submit</button>
+   <h1 id="result"></h1>
+    </div>      
+   </center>
+   <script>
+    const marks=()=>{
+        let Mark1=Number(document.getElementById("sub1").value)
+        let Mark2=Number(document.getElementById("sub2").value)
+        let Mark3=Number(document.getElementById("sub3").value)
+        let Mark4=Number(document.getElementById("sub4").value)
+        let Mark5=Number(document.getElementById("sub5").value)
+        let total=Mark1 + Mark2 + Mark3 + Mark4 + Mark5
+        let Average=total/5
 
-        <div class="summary">
-            <div>
-                <h3>Total Income</h3>
-                <h3 class="income" id="income">₹0.00</h3>
-            </div>
-
-            <div>
-                <h3>Total Expenses</h3>
-                <h3 class="expense" id="expense">₹0.00</h3>
-            </div>
-        </div>
-
-        <h2>Add Transaction</h2>
-
-        <form id="transactionForm">
-            <input type="text" id="description"
-                   placeholder="Enter description" required>
-
-            <input type="number" id="amount"
-                   placeholder="Enter amount"
-                   min="0.01" step="0.01" required>
-
-            <select id="type">
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-            </select>
-
-            <button type="submit">Add Transaction</button>
-        </form>
-
-        <h2>Transaction History</h2>
-        <ul id="transactionList"></ul>
-    </div>
-
-    <script>
-        let transactions =
-            JSON.parse(localStorage.getItem("transactions")) || [];
-
-        const form = document.getElementById("transactionForm");
-        const list = document.getElementById("transactionList");
-        form.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const description =
-                document.getElementById("description").value.trim();
-
-            const amount =
-                Number(document.getElementById("amount").value);
-
-            const type =
-                document.getElementById("type").value;
-
-            if (!description || !Number.isFinite(amount)
-                || amount <= 0) {
-                alert("Please enter a valid description and amount.");
-                return;
-            }
-
-            const transaction = {
-                id: Date.now() + Math.random(),
-                description: description,
-                amount: amount,
-                type: type
-            };
-
-            transactions.push(transaction);
-
-            saveTransactions();
-            displayTransactions();
-            form.reset();
-        });
-        function displayTransactions() {
-            list.innerHTML = "";
-
-            let totalIncome = 0;
-            let totalExpense = 0;
-
-            transactions.forEach(function(transaction) {
-                if (transaction.type === "income") {
-                    totalIncome += transaction.amount;
-                } else {
-                    totalExpense += transaction.amount;
-                }
-
-                const li = document.createElement("li");
-
-                const info = document.createElement("span");
-                info.className = "transaction-info";
-                info.textContent =
-                    transaction.description + " - ₹" +
-                    transaction.amount.toFixed(2);
-
-                info.classList.add(transaction.type);
-
-                const deleteButton =
-                    document.createElement("button");
-
-                deleteButton.textContent = "Delete";
-                deleteButton.className = "delete-btn";
-
-                deleteButton.addEventListener("click", function() {
-                    deleteTransaction(transaction.id);
-                });
-
-                li.appendChild(info);
-                li.appendChild(deleteButton);
-                list.appendChild(li);
-            });
-
-            const balance = totalIncome - totalExpense;
-
-            document.getElementById("income").textContent =
-                "₹" + totalIncome.toFixed(2);
-
-            document.getElementById("expense").textContent =
-                "₹" + totalExpense.toFixed(2);
-
-            document.getElementById("balance").textContent =
-                "₹" + balance.toFixed(2);
+        if(total >=100){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade A" )
         }
-        function deleteTransaction(id) {
-            transactions = transactions.filter(
-                transaction => transaction.id !== id
-            );
-
-            saveTransactions();
-            displayTransactions();
+        else if(total>=80){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade B" )
         }
-        function saveTransactions() {
-            localStorage.setItem(
-                "transactions",
-                JSON.stringify(transactions)
-            );
+        else if(total>=50){
+            document.getElementById("result").innerHTML=("Student pass" + " " + total + " " + Average + "%" + "Grade C" )
         }
-        displayTransactions();
-    </script>
+        else if(total>=25){
+            document.getElementById("result").innerHTML=("Student just pass" + " " + total + " " + Average + "%" + "Grade D" )
+        }
+        else{
+            document.getElementById("result").innerHTML=("Student fail" + " " + total + " " + Average  + "%" + "UR" )
+        }
+    }
+   </script>
 </body>
 </html>
